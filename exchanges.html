@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>交易所目录 — NewBitX</title>
+    <meta name="description" content="NewBitX 交易所公开合作计划目录：北美可推与离岸教材分层，诚实标注是否官方伙伴。" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Syne:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles/site.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap nav">
+        <a class="brand" href="/index.html">NewBit<em>X</em></a>
+        <ul class="nav-links">
+          <li><a data-nav href="/index.html">首页</a></li>
+          <li><a data-nav href="/train.html">BD 学院</a></li>
+          <li><a data-nav href="/kols.html">KOL 名录</a></li>
+          <li><a data-nav href="/exchanges.html">交易所目录</a></li>
+          <li><a data-nav href="/join.html">加入</a></li>
+        </ul>
+        <a class="nav-cta" href="/join.html">申请合作</a>
+      </div>
+    </header>
+
+    <main class="section">
+      <div class="wrap">
+        <h2 class="reveal">交易所公开目录</h2>
+        <p class="lede reveal">
+          「建立关联」分两层：① 学习与导航各所<strong>公开</strong> Affiliate / 创作者入口；② 与 NewBitX
+          <strong>签约后</strong>才显示官方伙伴。下表默认均为公开信息整理，非默认官方合作。
+        </p>
+        <div class="table-wrap reveal">
+          <table class="data">
+            <thead>
+              <tr>
+                <th>交易所</th>
+                <th>区域标签</th>
+                <th>公开合作结构（摘要）</th>
+                <th>入口</th>
+                <th>NewBitX 官方</th>
+              </tr>
+            </thead>
+            <tbody id="ex-body"></tbody>
+          </table>
+        </div>
+        <div class="panel reveal" style="margin-top: 1.5rem">
+          <h3>想成为「官方关联」？</h3>
+          <p>
+            交易所 BD / Affiliate 团队可通过「加入」提交伙伴意向。我们只在签署 NDA / 合作备忘或正式协议后点亮官方徽章，并更新本页。
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <div>© <span data-year></span> NewBitX</div>
+        <div>费率与资格以各所官网与合同为准</div>
+      </div>
+    </footer>
+    <script type="module">
+      import { exchanges } from "/src/data/exchanges.js";
+      import "/src/site.js";
+
+      document.getElementById("ex-body").innerHTML = exchanges
+        .map(
+          (x) => `<tr>
+          <td><strong>${x.name}</strong><br /><span class="note">${x.note}</span></td>
+          <td>${x.region}</td>
+          <td>${x.structure}</td>
+          <td>${x.entry}</td>
+          <td>${
+            x.official
+              ? '<span class="tag tag-ok">官方伙伴</span>'
+              : '<span class="tag">公开目录</span>'
+          }</td>
+        </tr>`
+        )
+        .join("");
+    </script>
+  </body>
+</html>

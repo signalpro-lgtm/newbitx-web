@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>加入 — NewBitX</title>
+    <meta name="description" content="申请加入 NewBitX：BD 学员、KOL 商务、交易所伙伴意向。" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Syne:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles/site.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap nav">
+        <a class="brand" href="/index.html">NewBit<em>X</em></a>
+        <ul class="nav-links">
+          <li><a data-nav href="/index.html">首页</a></li>
+          <li><a data-nav href="/train.html">BD 学院</a></li>
+          <li><a data-nav href="/kols.html">KOL 名录</a></li>
+          <li><a data-nav href="/exchanges.html">交易所目录</a></li>
+          <li><a data-nav href="/join.html">加入</a></li>
+        </ul>
+        <a class="nav-cta" href="/join.html">申请合作</a>
+      </div>
+    </header>
+
+    <main class="section">
+      <div class="wrap split split-2">
+        <div>
+          <h2 class="reveal">加入 NewBitX</h2>
+          <p class="lede reveal">
+            学员跟练、KOL 更新商务信息、交易所谈伙伴——先留下意向。上线初期表单通过邮箱提交；你可把收件地址改成自己的。
+          </p>
+          <form class="form reveal" id="join-form">
+            <label>
+              身份
+              <select name="role" required>
+                <option value="">请选择</option>
+                <option>BD 学员 / 求职者</option>
+                <option>KOL / 社区主</option>
+                <option>交易所 / Affiliate 团队</option>
+                <option>其他合作</option>
+              </select>
+            </label>
+            <label>
+              姓名
+              <input name="name" required autocomplete="name" />
+            </label>
+            <label>
+              邮箱
+              <input type="email" name="email" required autocomplete="email" />
+            </label>
+            <label>
+              地区与语言市场
+              <input name="market" placeholder="如：美国英语 / 加拿大" />
+            </label>
+            <label>
+              简要说明
+              <textarea name="message" required placeholder="目标、资源、希望对接的所或赛道…"></textarea>
+            </label>
+            <button class="btn btn-ink" type="submit">发送意向</button>
+            <p class="note" id="form-note">
+              将打开你的邮件客户端，预填正文。也可改用 Formspree / Google Forms 接收入站线索。
+            </p>
+          </form>
+        </div>
+        <aside class="panel reveal">
+          <h3>发布后建议立刻做的 3 件事</h3>
+          <p>
+            1. 把下方收件邮箱改成你自己的（见站点配置）。<br /><br />
+            2. 每周更新 KOL 名录与「官方伙伴」状态。<br /><br />
+            3. 用 BD 学院带女儿跑完第一轮 4 周，把优秀 Portfolio 做成站内案例（脱敏）。
+          </p>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <div>© <span data-year></span> NewBitX · www.newbitx.com</div>
+        <div>我们重视合规：不协助向受限地区违规获客。</div>
+      </div>
+    </footer>
+    <script type="module">
+      import "/src/site.js";
+
+      // TODO: 改成你的真实邮箱
+      const INBOX = "hello@newbitx.com";
+
+      document.getElementById("join-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        const subject = encodeURIComponent(`[NewBitX] ${fd.get("role")} · ${fd.get("name")}`);
+        const body = encodeURIComponent(
+          `身份: ${fd.get("role")}\n姓名: ${fd.get("name")}\n邮箱: ${fd.get("email")}\n市场: ${fd.get("market")}\n\n说明:\n${fd.get("message")}`
+        );
+        window.location.href = `mailto:${INBOX}?subject=${subject}&body=${body}`;
+        document.getElementById("form-note").textContent = "若未自动打开邮件，请手动发信至 " + INBOX;
+      });
+    </script>
+  </body>
+</html>

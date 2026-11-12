@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KOL 名录 — NewBitX</title>
+    <meta name="description" content="NewBitX 精选加密 KOL 名录，含北美 BD 标签，用于培训与合规触达练习。" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Syne:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles/site.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap nav">
+        <a class="brand" href="/index.html">NewBit<em>X</em></a>
+        <ul class="nav-links">
+          <li><a data-nav href="/index.html">首页</a></li>
+          <li><a data-nav href="/train.html">BD 学院</a></li>
+          <li><a data-nav href="/kols.html">KOL 名录</a></li>
+          <li><a data-nav href="/exchanges.html">交易所目录</a></li>
+          <li><a data-nav href="/join.html">加入</a></li>
+        </ul>
+        <a class="nav-cta" href="/join.html">申请合作</a>
+      </div>
+    </header>
+
+    <main class="section">
+      <div class="wrap">
+        <h2 class="reveal">KOL 名录</h2>
+        <p class="lede reveal">
+          首批公开快照，供 BD 练习建名单与分级。粉丝数 ≠ 可转化；签约前仍要做漏斗与合规检查。想上榜或更新商务联系，请走「加入」。
+        </p>
+        <div class="filters reveal" id="filters" role="group" aria-label="按北美标签筛选">
+          <button type="button" data-filter="all" aria-pressed="true">全部</button>
+          <button type="button" data-filter="可优先" aria-pressed="false">可优先</button>
+          <button type="button" data-filter="需谨慎" aria-pressed="false">需谨慎</button>
+          <button type="button" data-filter="机构/创始人" aria-pressed="false">机构/创始人</button>
+        </div>
+        <div class="table-wrap reveal">
+          <table class="data">
+            <thead>
+              <tr>
+                <th>名称</th>
+                <th>平台</th>
+                <th>赛道</th>
+                <th>体量</th>
+                <th>北美标签</th>
+                <th>联系线索</th>
+              </tr>
+            </thead>
+            <tbody id="kol-body"></tbody>
+          </table>
+        </div>
+        <p class="note reveal" style="margin-top: 1rem">
+          数据来自公开榜与主页快照，会定期人工更新。NewBitX 不自动群发私信。
+        </p>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <div>© <span data-year></span> NewBitX</div>
+        <div>非官方认证榜单 · 教育用途</div>
+      </div>
+    </footer>
+    <script type="module">
+      import { kols } from "/src/data/kols.js";
+      import "/src/site.js";
+
+      const body = document.getElementById("kol-body");
+      const filters = document.getElementById("filters");
+
+      function tagClass(tag) {
+        if (tag === "可优先") return "tag tag-ok";
+        if (tag === "需谨慎") return "tag tag-warn";
+        return "tag tag-no";
+      }
+
+      function render(list) {
+        body.innerHTML = list
+          .map(
+            (k) => `<tr>
+            <td><a href="${k.url}" target="_blank" rel="noopener">${k.name}</a><br /><span class="note">${k.handle}</span></td>
+            <td>${k.platform}</td>
+            <td>${k.niche}<br /><span class="note">${k.audience}</span></td>
+            <td>${k.followers}</td>
+            <td><span class="${tagClass(k.naTag)}">${k.naTag}</span></td>
+            <td>${k.contact}</td>
+          </tr>`
+          )
+          .join("");
+      }
+
+      filters.addEventListener("click", (e) => {
+        const btn = e.target.closest("button[data-filter]");
+        if (!btn) return;
+        filters.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", "false"));
+        btn.setAttribute("aria-pressed", "true");
+        const f = btn.dataset.filter;
+        render(f === "all" ? kols : kols.filter((k) => k.naTag === f));
+      });
+
+      render(kols);
+    </script>
+  </body>
+</html>
