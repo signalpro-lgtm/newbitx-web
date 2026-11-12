@@ -17,5 +17,12 @@
 
 - Vite 多页静态站  
 - 无后端；数据在 `src/data/*.js`  
+- 仓库：https://github.com/signalpro-lgtm/newbitx-web  
+- 自动发布：push `main` → GitHub Pages  
 
-发布步骤见 [DEPLOY.md](./DEPLOY.md)。
+## 现在卡在哪
+
+`www.newbitx.com` 在 Cloudflare 上返回 **521**（源站不可达）。  
+最新版已发布到 GitHub Pages；**你只需在 Cloudflare DNS 把 `www` 改成 CNAME → `signalpro-lgtm.github.io`（先灰云）**。详见 [DEPLOY.md](./DEPLOY.md)。
+
+日常更新：改代码 → `git push origin main`。
