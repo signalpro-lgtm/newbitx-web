@@ -2,6 +2,8 @@ import { resolve } from "node:path";
 import { defineConfig } from "vite";
 
 export default defineConfig({
+  // Relative assets so both github.io/newbitx-web/ and www.newbitx.com work.
+  base: "./",
   build: {
     rollupOptions: {
       input: {
